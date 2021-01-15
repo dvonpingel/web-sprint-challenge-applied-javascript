@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const Card = (article) => {
   // TASK 5
   // ---------------------
@@ -17,6 +19,32 @@ const Card = (article) => {
   //   </div>
   // </div>
   //
+  const card = document.createElement('div');
+  const headLine = document.createElement('div');
+  const author = document.createElement('div');
+  const imgCont = document.createElement('div');
+  const authorImg = document.createElement('img');
+  const authorName = document.createElement('span');
+
+  card.classList.add('card');
+  headLine.classList.add('headline');
+  author.classList.add('author');
+  imgCont.classList.add('img-container');
+
+  card.appendChild(headLine);
+  card.appendChild(author);
+  author.appendChild(imgCont);
+  author.appendChild(authorName);
+  imgCont.appendChild(authorImg);
+
+  headLine.textContent = article.headline;
+  authorImg.src = article.authorPhoto;
+  authorName.textContent = article.authorName;
+
+  card.addEventListener('click', function(event) {
+    console.log(article.headline);
+  });
+  return card;
 }
 
 const cardAppender = (selector) => {
@@ -28,6 +56,29 @@ const cardAppender = (selector) => {
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
+  const selected = document.querySelector(selector);
+  axios
+  .get(`https://lambda-times-api.herokuapp.com/articles`)
+  .then((res) => {
+    const javaCards = res.data.articles.javascript;
+    const bootCards = res.data.articles.bootstrap;
+    const techCards = res.data.articles.technology;
+    const jqueryCards = res.data.articles.jquery;
+    const nodeCards = res.data.articles.node;
+
+    function cardChildren(object) {
+      object.forEach(card => {
+        const cardMaker = Card(card);
+        selected.appendChild(cardMaker);
+      });
+    }
+    
+    cardChildren(javaCards);
+    cardChildren(bootCards);
+    cardChildren(techCards);
+    cardChildren(jqueryCards);
+    cardChildren(nodeCards);
+  })
 }
 
 export { Card, cardAppender }

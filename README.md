@@ -8,7 +8,6 @@ This is an individual assessment. All work must be your own. Your challenge scor
 
 You are not allowed to collaborate during the sprint challenge. However, you are encouraged to follow the twenty-minute rule and seek support by dropping a :wave: in your help channel when needed.
 
-
 ## Introduction
 
 You are going to create a Lambda Newspaper. Your job is going to be to create the components that make up the newspaper's home page.
